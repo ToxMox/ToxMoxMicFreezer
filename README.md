@@ -82,6 +82,6 @@ ToxMoxMicFreezer uses NAudio to interact with Windows audio APIs, monitoring sel
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
-
+- I completely vibe coded this app using AI. I am not a programmer.
 - [NAudio](https://github.com/naudio/NAudio) - .NET audio library
 - [WPF UI](https://github.com/lepoco/wpfui) - Modern WPF UI library 
