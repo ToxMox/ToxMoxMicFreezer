@@ -4,8 +4,8 @@
 
 A Windows application that keeps your selected audio devices' volume locked at 0dB. Perfect for microphones and other audio inputs that need consistent volume levels.
 
-<!-- ![ToxMoxMicFreezer Screenshot](Assets/screenshot.png) -->
-<!-- TODO: Add a screenshot of the application here -->
+![image](https://github.com/user-attachments/assets/a63a7853-ac45-4e11-bfe6-e4d1c736a006)
+
 
 ## Features
 
