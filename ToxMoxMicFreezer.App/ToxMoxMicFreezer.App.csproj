@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows10.0.19041.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>ToxMoxMicFreezer.App</AssemblyName>
+    <RootNamespace>ToxMoxMicFreezer.App</RootNamespace>
+    <ApplicationIcon>Assets\AppIcon.ico</ApplicationIcon>
+    <Win32Resource></Win32Resource>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <SelfContained>true</SelfContained>
+    <IncludeAllContentForSelfExtract>false</IncludeAllContentForSelfExtract>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NAudio" Version="2.2.1" />
+    <PackageReference Include="WPF-UI" Version="4.0.2" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\AppIcon.ico" />
+    <EmbeddedResource Include="Assets\AppIcon.ico" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <PublishTrimmed>false</PublishTrimmed>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+  </PropertyGroup>
+
+  <Target Name="GenerateAppIconBeforeBuild" BeforeTargets="BeforeBuild">
+    <PropertyGroup>
+      <IconDir>$(ProjectDir)Assets</IconDir>
+      <IconPath>$(IconDir)\AppIcon.ico</IconPath>
+    </PropertyGroup>
+    
+    <MakeDir Directories="$(IconDir)" Condition="!Exists('$(IconDir)')" />
+    
+    <Exec Command="dotnet run --no-build --project $(ProjectPath) -- --generateicon" Condition="!Exists('$(IconPath)')" />
+  </Target>
+
+</Project>
