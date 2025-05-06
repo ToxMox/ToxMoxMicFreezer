@@ -23,7 +23,7 @@ A Windows application that keeps your selected audio devices' volume locked at 0
 
 ## Installation
 
-1. Download the latest release from the [Releases](https://github.com/yourusername/ToxMoxMicFreezer/releases) page
+1. Download the latest release from the [Releases](https://github.com/ToxMox/ToxMoxMicFreezer/releases) page
 2. Run the executable - no installation required
 3. Select the devices you want to monitor
 4. The application will run in the system tray, keeping your selected devices at 0dB
