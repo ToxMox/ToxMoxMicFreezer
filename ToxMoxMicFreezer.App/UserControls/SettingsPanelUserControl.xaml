@@ -1,0 +1,150 @@
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- Copyright (c) 2025 CrunchFocus LLC -->
+<UserControl x:Class="ToxMoxMicFreezer.App.UserControls.SettingsPanelUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d">
+    
+    <Border Background="{DynamicResource ApplicationBackgroundBrush}" 
+            BorderBrush="{DynamicResource ControlElevationBorderBrush}" 
+            BorderThickness="1" 
+            CornerRadius="8" 
+            Padding="15">
+        <StackPanel Width="250">
+            <TextBlock Text="Settings" 
+                      FontWeight="SemiBold" 
+                      Margin="0,0,0,10"
+                      Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
+            
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                          Text="Run at Startup" 
+                          Foreground="{DynamicResource TextFillColorPrimaryBrush}" 
+                          VerticalAlignment="Center"/>
+                <CheckBox Grid.Column="1"
+                         x:Name="StartupToggle"
+                         Checked="StartupToggle_Checked"
+                         Unchecked="StartupToggle_Unchecked"
+                         VerticalAlignment="Center"
+                         Margin="10,0,0,0"
+                         Style="{DynamicResource ToggleButtonStyle}"/>
+            </Grid>
+            
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                          Text="Minimize to Tray" 
+                          Foreground="{DynamicResource TextFillColorPrimaryBrush}" 
+                          VerticalAlignment="Center"/>
+                <CheckBox Grid.Column="1"
+                         x:Name="MinimizeToTrayToggle"
+                         Checked="MinimizeToTrayToggle_Checked"
+                         Unchecked="MinimizeToTrayToggle_Unchecked"
+                         VerticalAlignment="Center"
+                         Margin="10,0,0,0"
+                         Style="{DynamicResource ToggleButtonStyle}"/>
+            </Grid>
+            
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                          Text="Start Minimized to Tray" 
+                          Foreground="{DynamicResource TextFillColorPrimaryBrush}" 
+                          VerticalAlignment="Center"/>
+                <CheckBox Grid.Column="1"
+                         x:Name="StartMinimizedToggle"
+                         Checked="StartMinimizedToggle_Checked"
+                         Unchecked="StartMinimizedToggle_Unchecked"
+                         VerticalAlignment="Center"
+                         Margin="10,0,0,0"
+                         Style="{DynamicResource ToggleButtonStyle}"/>
+            </Grid>
+            
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                          Text="Hide Fixed Volume Devices" 
+                          Foreground="{DynamicResource TextFillColorPrimaryBrush}" 
+                          VerticalAlignment="Center"/>
+                <CheckBox Grid.Column="1"
+                         x:Name="HideFixedVolumeToggle"
+                         Checked="HideFixedVolumeToggle_Checked"
+                         Unchecked="HideFixedVolumeToggle_Unchecked"
+                         VerticalAlignment="Center"
+                         Margin="10,0,0,0"
+                         Style="{DynamicResource ToggleButtonStyle}"/>
+            </Grid>
+            
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                          Text="Popup Notifications" 
+                          Foreground="{DynamicResource TextFillColorPrimaryBrush}" 
+                          VerticalAlignment="Center"/>
+                <CheckBox Grid.Column="1"
+                         x:Name="PopupNotificationsToggle"
+                         Checked="PopupNotificationsToggle_Checked"
+                         Unchecked="PopupNotificationsToggle_Unchecked"
+                         VerticalAlignment="Center"
+                         Margin="10,0,0,0"
+                         Style="{DynamicResource ToggleButtonStyle}"/>
+            </Grid>
+            
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                          Text="Audio Metering" 
+                          Foreground="{DynamicResource TextFillColorPrimaryBrush}" 
+                          VerticalAlignment="Center"/>
+                <CheckBox Grid.Column="1"
+                         x:Name="AudioMeteringToggle"
+                         Checked="AudioMeteringToggle_Checked"
+                         Unchecked="AudioMeteringToggle_Unchecked"
+                         VerticalAlignment="Center"
+                         Margin="10,0,0,0"
+                         Style="{DynamicResource ToggleButtonStyle}"/>
+            </Grid>
+            
+            <!-- Debug Logging Section -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                          Text="Debug Logging" 
+                          Foreground="{DynamicResource TextFillColorPrimaryBrush}" 
+                          VerticalAlignment="Center"/>
+                <CheckBox Grid.Column="1"
+                         x:Name="DebugLoggingToggle"
+                         Checked="DebugLoggingToggle_Checked"
+                         Unchecked="DebugLoggingToggle_Unchecked"
+                         VerticalAlignment="Center"
+                         Margin="10,0,0,0"
+                         Style="{DynamicResource ToggleButtonStyle}"/>
+            </Grid>
+            
+        </StackPanel>
+    </Border>
+</UserControl>

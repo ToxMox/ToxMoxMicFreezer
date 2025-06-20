@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows10.0.19041.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>ToxMoxMicFreezer</AssemblyName>
+    <RootNamespace>ToxMoxMicFreezer.App</RootNamespace>
+    <ApplicationIcon>Assets\AppIcon.ico</ApplicationIcon>
+    <UseApplicationIcon>true</UseApplicationIcon>
+    <Win32Resource></Win32Resource>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <SelfContained>true</SelfContained>
+    <IncludeAllContentForSelfExtract>false</IncludeAllContentForSelfExtract>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <!-- Version Information -->
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Using NAudio for stable COM-managed audio device enumeration -->
+    <PackageReference Include="NAudio" Version="2.2.1" />
+    <PackageReference Include="WPF-UI" Version="4.0.2" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.7" />
+    <PackageReference Include="CommunityToolkit.WinUI.Notifications" Version="7.1.2" />
+    <PackageReference Include="H.NotifyIcon.WPF" Version="2.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- H.NotifyIcon requires icons as Resource (WPF pack URI) -->
+    <Resource Include="Assets\AppIcon.ico" />
+    <Resource Include="Assets\AppIconPaused.ico" />
+    
+    <!-- App.GetAppIcon() requires icons as EmbeddedResource (GetManifestResourceStream) -->
+    <EmbeddedResource Include="Assets\AppIcon.ico" />
+    <EmbeddedResource Include="Assets\AppIconPaused.ico" />
+    
+    <!-- FontAwesome fonts: Resource for WPF -->
+    <Resource Include="Fonts\fontawesome-solid.otf" />
+    <Resource Include="Fonts\fontawesome-regular.otf" />
+    
+    <!-- System tray header image -->
+    <EmbeddedResource Include="Assets\systray-header.png" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <PublishTrimmed>false</PublishTrimmed>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+  </PropertyGroup>
+
+  <!-- Default publish configuration to match your command -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <!-- Ensure icon is embedded in single-file publish -->
+    <IncludeApplicationIcon>true</IncludeApplicationIcon>
+  </PropertyGroup>
+
+
+</Project>

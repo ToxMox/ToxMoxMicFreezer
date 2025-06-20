@@ -1,0 +1,126 @@
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- Copyright (c) 2025 CrunchFocus LLC -->
+<UserControl x:Class="ToxMoxMicFreezer.App.UserControls.HelpPanelUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d">
+    
+    <Border Background="{DynamicResource ApplicationBackgroundBrush}" 
+            BorderBrush="{DynamicResource ControlElevationBorderBrush}" 
+            BorderThickness="1" 
+            CornerRadius="8" 
+            Padding="15">
+        <StackPanel Width="350">
+            <TextBlock Text="Help &amp; Usage Guide" 
+                      FontWeight="SemiBold" 
+                      FontSize="16"
+                      Margin="0,0,0,15"
+                      Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
+            
+            <!-- Device Freezing Section -->
+            <StackPanel Margin="0,0,0,12">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="&#xf2dc;" FontFamily="{StaticResource FontAwesome}" FontSize="14" 
+                              Foreground="{DynamicResource SystemAccentColorPrimaryBrush}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <TextBlock Text="Device Freezing" FontWeight="SemiBold" 
+                              Foreground="{DynamicResource TextFillColorPrimaryBrush}" VerticalAlignment="Center"/>
+                </StackPanel>
+                <TextBlock Text="Click the snowflake icon to actively freeze/monitor a device for external volume changes. When frozen, the application will prevent other programs from changing the device volume."
+                          TextWrapping="Wrap" Margin="22,0,0,0"
+                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+            </StackPanel>
+            
+            <!-- Volume Control Section -->
+            <StackPanel Margin="0,0,0,12">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="&#xf028;" FontFamily="{StaticResource FontAwesome}" FontSize="14" 
+                              Foreground="{DynamicResource SystemAccentColorPrimaryBrush}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <TextBlock Text="Volume Control" FontWeight="SemiBold" 
+                              Foreground="{DynamicResource TextFillColorPrimaryBrush}" VerticalAlignment="Center"/>
+                </StackPanel>
+                <TextBlock TextWrapping="Wrap" Margin="22,0,0,0"
+                          Foreground="{DynamicResource TextFillColorSecondaryBrush}">
+                    <Run Text="• Click and drag volume bars to adjust volume"/>
+                    <LineBreak/>
+                    <Run Text="• Click on a specific position to set volume"/>
+                    <LineBreak/>
+                    <Run Text="• Right-click volume bars to set to 0dB"/>
+                </TextBlock>
+            </StackPanel>
+            
+            <!-- Favorites Section -->
+            <StackPanel Margin="0,0,0,12">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="&#xf005;" FontFamily="{StaticResource FontAwesome}" FontSize="14" 
+                              Foreground="{DynamicResource SystemAccentColorPrimaryBrush}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <TextBlock Text="Favorites &amp; Organization" FontWeight="SemiBold" 
+                              Foreground="{DynamicResource TextFillColorPrimaryBrush}" VerticalAlignment="Center"/>
+                </StackPanel>
+                <TextBlock TextWrapping="Wrap" Margin="22,0,0,0"
+                          Foreground="{DynamicResource TextFillColorSecondaryBrush}">
+                    <Run Text="• Click the star icon to add devices to favorites"/>
+                    <LineBreak/>
+                    <Run Text="• In the Favorites tab, drag and drop devices to reorder them"/>
+                    <LineBreak/>
+                    <Run Text="• Devices are organized into left and right columns for better layout"/>
+                </TextBlock>
+            </StackPanel>
+            
+            <!-- Mute Control Section -->
+            <StackPanel Margin="0,0,0,12">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="&#xf026;" FontFamily="{StaticResource FontAwesome}" FontSize="14" 
+                              Foreground="{DynamicResource SystemAccentColorPrimaryBrush}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <TextBlock Text="Mute Control" FontWeight="SemiBold" 
+                              Foreground="{DynamicResource TextFillColorPrimaryBrush}" VerticalAlignment="Center"/>
+                </StackPanel>
+                <TextBlock Text="Click the speaker/microphone icon to toggle device mute state. The icon will change to show current mute status."
+                          TextWrapping="Wrap" Margin="22,0,0,0"
+                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+            </StackPanel>
+            
+            <!-- Pause Feature Section -->
+            <StackPanel Margin="0,0,0,0">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="&#xf04c;" FontFamily="{StaticResource FontAwesome}" FontSize="14" 
+                              Foreground="{DynamicResource SystemAccentColorPrimaryBrush}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <TextBlock Text="Pause Monitoring" FontWeight="SemiBold" 
+                              Foreground="{DynamicResource TextFillColorPrimaryBrush}" VerticalAlignment="Center"/>
+                </StackPanel>
+                <TextBlock Text="Use the pause button to temporarily stop volume monitoring. Right-click for pause duration options (5 min, 15 min, 30 min, 1 hour, or indefinite)."
+                          TextWrapping="Wrap" Margin="22,0,0,0"
+                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+            </StackPanel>
+            
+            <!-- Version Footer -->
+            <Border BorderBrush="{DynamicResource ControlElevationBorderBrush}" 
+                    BorderThickness="0,1,0,0" 
+                    Margin="0,15,0,0" 
+                    Padding="0,10,0,0">
+                <StackPanel>
+                    <TextBlock Text="{Binding AppVersion}" 
+                              HorizontalAlignment="Center"
+                              FontSize="12"
+                              Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                    
+                    <TextBlock HorizontalAlignment="Center"
+                              FontSize="12"
+                              Margin="0,5,0,0"
+                              TextAlignment="Center">
+                        <Run Text="Visit " Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                        <Hyperlink NavigateUri="https://github.com/ToxMox/ToxMoxMicFreezer" 
+                                   RequestNavigate="Hyperlink_RequestNavigate"
+                                   Foreground="{DynamicResource SystemAccentColorPrimaryBrush}"
+                                   TextDecorations="None">
+                            <Run Text="github.com/ToxMox/ToxMoxMicFreezer"/>
+                        </Hyperlink>
+                        <LineBreak/>
+                        <Run Text="for documentation and updates." Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Border>
+</UserControl>
