@@ -2,7 +2,7 @@
 
 A Windows desktop application that prevents external applications from changing your audio device volumes. Perfect for streamers, content creators, and anyone who needs consistent audio levels.
 
-![ToxMox's Mic Freezer+ in action](./ToxMoxMicFreezer.gif)
+![ToxMoxMicFreezer](https://github.com/user-attachments/assets/f662fede-4c04-4c60-9455-8de39ec274a4)
 
 ## Features
 
