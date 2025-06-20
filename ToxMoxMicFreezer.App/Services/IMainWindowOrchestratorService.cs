@@ -141,5 +141,11 @@ namespace ToxMoxMicFreezer.App.Services
         /// Sets the active tab for audio metering optimization
         /// </summary>
         void SetActiveTab(string tabName);
+        
+        /// <summary>
+        /// Cleans up resources used by the orchestrator service
+        /// Should be called when the application is closing
+        /// </summary>
+        void Cleanup();
     }
 }

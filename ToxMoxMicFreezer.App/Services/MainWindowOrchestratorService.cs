@@ -2,7 +2,9 @@
 // Copyright (c) 2025 CrunchFocus LLC
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 using ToxMoxMicFreezer.App.DeviceManagement;
 using ToxMoxMicFreezer.App.Models;
 using ToxMoxMicFreezer.App.Settings;
@@ -45,6 +47,13 @@ namespace ToxMoxMicFreezer.App.Services
         private EventHandlerCoordinator? _eventHandlerCoordinator;
         private TabManager? _tabManager;
         private DebouncedRegistryManager? _debouncedRegistryManager;
+        
+        // Audio meter UI update throttling
+        private readonly Dictionary<string, float> _pendingPeakLevels = new Dictionary<string, float>();
+        private readonly Dictionary<string, StereoPeakLevels> _pendingStereoPeakLevels = new Dictionary<string, StereoPeakLevels>();
+        private readonly object _peakLevelLock = new object();
+        private DispatcherTimer? _meterUpdateTimer;
+        private const int METER_UPDATE_INTERVAL_MS = 33; // ~30 FPS updates regardless of monitor refresh rate
 
         // Property accessors
         public ILoggingService LoggingService => _loggingService ?? throw new InvalidOperationException("LoggingService not initialized");
@@ -184,6 +193,9 @@ namespace ToxMoxMicFreezer.App.Services
             _audioMeteringService.PeakLevelChanged += OnPeakLevelChanged;
             _audioMeteringService.StereoPeakLevelChanged += OnStereoPeakLevelChanged;
             _audioMeteringService.ChannelCountDetected += OnChannelCountDetected;
+            
+            // Initialize meter update timer for throttled UI updates
+            InitializeMeterUpdateTimer();
 
         }
 
@@ -361,10 +373,60 @@ namespace ToxMoxMicFreezer.App.Services
 
 
         /// <summary>
+        /// Initialize the meter update timer for throttled UI updates
+        /// This prevents UI thread saturation on high refresh rate monitors
+        /// </summary>
+        private void InitializeMeterUpdateTimer()
+        {
+            _meterUpdateTimer = new DispatcherTimer(DispatcherPriority.Render);
+            _meterUpdateTimer.Interval = TimeSpan.FromMilliseconds(METER_UPDATE_INTERVAL_MS);
+            _meterUpdateTimer.Tick += OnMeterUpdateTimerTick;
+            _meterUpdateTimer.Start();
+            
+            _loggingService?.Log($"Audio meter UI update throttling enabled at {1000 / METER_UPDATE_INTERVAL_MS} FPS", LogLevel.Debug);
+        }
+        
+        /// <summary>
+        /// Timer tick handler that applies batched peak level updates to the UI
+        /// </summary>
+        private void OnMeterUpdateTimerTick(object? sender, EventArgs e)
+        {
+            lock (_peakLevelLock)
+            {
+                // Apply all pending peak level updates
+                foreach (var kvp in _pendingPeakLevels)
+                {
+                    UpdateDevicePeakLevel(kvp.Key, kvp.Value);
+                }
+                _pendingPeakLevels.Clear();
+                
+                // Apply all pending stereo peak level updates
+                foreach (var kvp in _pendingStereoPeakLevels)
+                {
+                    UpdateDeviceStereoPeakLevels(kvp.Key, kvp.Value);
+                }
+                _pendingStereoPeakLevels.Clear();
+            }
+        }
+
+        /// <summary>
         /// Handles peak level changes from the audio metering service
-        /// Updates the appropriate device's peak level in the UI
+        /// Stores updates for batched application to prevent UI thread saturation
         /// </summary>
         private void OnPeakLevelChanged(string deviceId, float peakLevel)
+        {
+            lock (_peakLevelLock)
+            {
+                // Store the latest peak level for this device
+                _pendingPeakLevels[deviceId] = peakLevel;
+            }
+        }
+        
+        /// <summary>
+        /// Actually updates the device's peak level in the UI
+        /// Called from the timer to batch updates
+        /// </summary>
+        private void UpdateDevicePeakLevel(string deviceId, float peakLevel)
         {
             try
             {
@@ -406,9 +468,22 @@ namespace ToxMoxMicFreezer.App.Services
 
         /// <summary>
         /// Handles stereo peak level changes from the audio metering service
-        /// Updates the appropriate device's left and right peak levels in the UI
+        /// Stores updates for batched application to prevent UI thread saturation
         /// </summary>
         private void OnStereoPeakLevelChanged(string deviceId, StereoPeakLevels stereoPeakLevels)
+        {
+            lock (_peakLevelLock)
+            {
+                // Store the latest stereo peak levels for this device
+                _pendingStereoPeakLevels[deviceId] = stereoPeakLevels;
+            }
+        }
+        
+        /// <summary>
+        /// Actually updates the device's stereo peak levels in the UI
+        /// Called from the timer to batch updates
+        /// </summary>
+        private void UpdateDeviceStereoPeakLevels(string deviceId, StereoPeakLevels stereoPeakLevels)
         {
             try
             {
@@ -509,6 +584,30 @@ namespace ToxMoxMicFreezer.App.Services
         public void SetActiveTab(string tabName)
         {
             _audioMeteringService?.SetActiveTab(tabName);
+        }
+        
+        /// <summary>
+        /// Cleans up resources used by the orchestrator service
+        /// Should be called when the application is closing
+        /// </summary>
+        public void Cleanup()
+        {
+            // Stop and dispose the meter update timer
+            if (_meterUpdateTimer != null)
+            {
+                _meterUpdateTimer.Stop();
+                _meterUpdateTimer.Tick -= OnMeterUpdateTimerTick;
+                _meterUpdateTimer = null;
+                
+                _loggingService?.Log("Audio meter update timer stopped and cleaned up", LogLevel.Debug);
+            }
+            
+            // Clear any pending updates
+            lock (_peakLevelLock)
+            {
+                _pendingPeakLevels.Clear();
+                _pendingStereoPeakLevels.Clear();
+            }
         }
     }
 }

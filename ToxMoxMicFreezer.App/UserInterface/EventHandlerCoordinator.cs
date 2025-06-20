@@ -60,6 +60,9 @@ namespace ToxMoxMicFreezer.App.UserInterface
                 {
                     _mainWindow._cts.Cancel();
                 }
+                
+                // Clean up the orchestrator service (including meter update timer)
+                _mainWindow._mainWindowOrchestrator?.Cleanup();
             }
         }
 
